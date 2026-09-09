@@ -15,8 +15,8 @@ html {
 
 body {
   margin:0;
-  background:#f6f7f3;
-  color:#182623;
+  background:#f5f7fb;
+  color:#14243e;
   font-family:Arial,Helvetica,sans-serif;
   font-size:16px;
   line-height:1.6
@@ -42,7 +42,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 ::selection {
   background:#d5ef75;
-  color:#182623
+  color:#14243e
 }
 
 .wrap {
@@ -59,7 +59,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   padding:20px 52px;
   max-width:1384px;
   margin:auto;
-  border-bottom:1px solid #d5dbd4
+  border-bottom:1px solid #d5ddea
 }
 
 .brand {
@@ -69,7 +69,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 .brand span {
-  color:#52724c
+  color:#214f88
 }
 
 .header nav {
@@ -80,7 +80,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 .nav-contact {
-  border:1px solid #aab5a9;
+  border:1px solid #a7b5cc;
   border-radius:30px;
   padding:9px 20px
 }
@@ -106,7 +106,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 .dot {
   display:inline-block;
-  background:#557b44;
+  background:#315b9a;
   width:7px;
   height:7px;
   border-radius:50%;
@@ -135,7 +135,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 .hero h1 .hand {
   font-size:.95em;
-  color:#3b623e;
+  color:#214f88;
   line-height:1.3;
   display:inline-block
 }
@@ -158,7 +158,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   align-items:center;
   justify-content:center;
   gap:35px;
-  background:#182623;
+  background:#14243e;
   color:#fff;
   padding:15px 23px;
   border-radius:4px;
@@ -167,7 +167,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 }
 
 .button:hover {
-  background:#3b623e
+  background:#214f88
 }
 
 .hero-note {
@@ -177,16 +177,16 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
   transform:rotate(7deg);
   font-family:Pedro Hand,cursive;
   font-size:26px;
-  color:#476846
+  color:#385b87
 }
 
 .hero-index {
   margin-top:42px;
-  border-top:1px solid #d5dbd4;
+  border-top:1px solid #d5ddea;
   padding-top:17px;
   font-size:12px;
   letter-spacing:2px;
-  color:#59665d
+  color:#59687e
 }
 
 .section {
@@ -203,7 +203,7 @@ a:focus-visible,button:focus-visible,input:focus-visible,textarea:focus-visible,
 
 .section-heading p {
   font-size:14px;
-  color:#5c695f;
+  color:#5b6b82;
   margin:0
 }
 
@@ -224,7 +224,7 @@ h3 {
 }
 
 p {
-  color:#4e6056
+  color:#4e607a
 }
 
 img {
@@ -285,7 +285,7 @@ img {
   flex-shrink:0;
   width:44px;
   height:44px;
-  border:1px solid #aab5a9;
+  border:1px solid #a7b5cc;
   border-radius:50%;
   display:grid;
   place-items:center;
@@ -358,7 +358,7 @@ img {
   gap:25px;
   align-items:center;
   justify-content:space-between;
-  border-block:1px solid #cbd4cb;
+  border-block:1px solid #ccd6e6;
   padding:28px 0;
   margin-top:22px
 }
@@ -369,7 +369,7 @@ img {
 }
 
 .collection-band {
-  background:#182d25;
+  background:#102441;
   color:#f4f6e9
 }
 
@@ -391,13 +391,13 @@ img {
 }
 
 .collection-band p {
-  color:#c3d0c4;
+  color:#c5d4e8;
   max-width:440px
 }
 
 .light {
   background:#d5ef75;
-  color:#182623;
+  color:#14243e;
   margin-top:15px
 }
 
@@ -410,7 +410,7 @@ img {
   flex-direction:column;
   align-items:center;
   justify-content:center;
-  border-left:1px solid #536254
+  border-left:1px solid #4c6586
 }
 
 .collection-number strong {
@@ -443,7 +443,7 @@ img {
 
 .about h2 .hand {
   font-size:1.3em;
-  color:#3b623e
+  color:#214f88
 }
 
 .location {
@@ -459,17 +459,17 @@ img {
 .lead {
   font-size:23px;
   line-height:1.5;
-  color:#182623
+  color:#14243e
 }
 
 .about blockquote {
   font-size:36px;
-  color:#3b623e;
+  color:#214f88;
   margin:30px 0 0
 }
 
 .trajectory {
-  border-top:1px solid #cbd4cb
+  border-top:1px solid #ccd6e6
 }
 
 .timeline {
@@ -482,13 +482,13 @@ img {
 }
 
 .timeline li {
-  border-top:2px solid #7e9a73;
+  border-top:2px solid #6083b4;
   padding-top:15px
 }
 
 .timeline li>span {
   font-size:12px;
-  color:#56764d
+  color:#385f93
 }
 
 .timeline h3 {
@@ -506,14 +506,14 @@ img {
 }
 
 .courses article {
-  border-top:1px solid #cbd4cb;
+  border-top:1px solid #ccd6e6;
   padding:20px 0
 }
 
 .courses article>span {
   font-size:12px;
   letter-spacing:1px;
-  color:#526a4a
+  color:#355a88
 }
 
 .courses h3 {
@@ -526,7 +526,7 @@ img {
 
 .text-link {
   display:inline-block;
-  border-bottom:1px solid #476846;
+  border-bottom:1px solid #385b87;
   padding:8px 0
 }
 
@@ -541,14 +541,14 @@ img {
 }
 
 .tags span {
-  border:1px solid #c3cfc0;
+  border:1px solid #c5d1e2;
   border-radius:30px;
   padding:9px 18px;
   font-size:14px
 }
 
 .contact {
-  background:#e0edcf;
+  background:#e0eafb;
   padding:75px 0
 }
 
@@ -558,7 +558,7 @@ img {
 }
 
 .contact .hand {
-  color:#3b623e;
+  color:#214f88;
   font-size:1.2em
 }
 
@@ -608,7 +608,7 @@ footer p,footer>a:last-child {
 
 .meta span {
   font-size:13px;
-  border:1px solid #bdcbbb;
+  border:1px solid #bccbe0;
   padding:7px 14px;
   border-radius:25px
 }
@@ -619,7 +619,7 @@ footer p,footer>a:last-child {
 
 .detail-content>section {
   padding:45px 0;
-  border-bottom:1px solid #cbd4cb
+  border-bottom:1px solid #ccd6e6
 }
 
 .detail-content h2 {
@@ -642,7 +642,7 @@ footer p,footer>a:last-child {
 
 .detail-visual figcaption,figcaption {
   font-size:13px;
-  color:#5b685d;
+  color:#596b83;
   margin-top:10px
 }
 
@@ -668,8 +668,8 @@ footer p,footer>a:last-child {
 
 .note {
   padding:28px;
-  background:#e8eee3;
-  border-left:3px solid #64865c
+  background:#e9eef7;
+  border-left:3px solid #527caf
 }
 
 .note p {
@@ -737,8 +737,8 @@ footer p,footer>a:last-child {
 
 .empty {
   padding:45px;
-  border:1px dashed #91a18a;
-  background:#edf1e8
+  border:1px dashed #8c9fb9;
+  background:#edf2f9
 }
 
 .empty h3 {
@@ -755,7 +755,7 @@ footer p,footer>a:last-child {
 
 .filters button {
   background:transparent;
-  border:1px solid #83977a;
+  border:1px solid #8099bb;
   border-radius:25px;
   padding:9px 18px;
   color:#294a30;
@@ -775,7 +775,7 @@ footer p,footer>a:last-child {
 
 .collection-grid article {
   padding:25px;
-  border:1px solid #bac9b3
+  border:1px solid #bacbe0
 }
 
 .collection-grid video {
@@ -1036,7 +1036,7 @@ h3 {
 
 .collection-number {
   border-left:0;
-  border-top:1px solid #536254;
+  border-top:1px solid #4c6586;
   padding-top:35px
 }
 
@@ -1237,8 +1237,21 @@ footer p {
 .record-photo { overflow: hidden; background: #dce4d8; }
 .collection-grid .record-photo img { width: 100%; max-width: none; height: auto; aspect-ratio: auto; object-fit: initial; }
 .certificate-list { padding-top: 15px; padding-bottom: 70px; }
-.certificate-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 40px 0; border-top: 1px solid #cbd4cb; align-items: center; }
-.certificate-card img { width: 100%; border: 1px solid #cbd4cb; }
+.certificate-card { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 40px 0; border-top: 1px solid #ccd6e6; align-items: center; }
+.certificate-card img { width: 100%; border: 1px solid #ccd6e6; }
 .certificate-card h2 { font-size: 30px; margin: 15px 0; }
 @media (max-width: 900px) { .collection-grid { grid-template-columns: 1fr; } .record-photo { max-height: none; } .certificate-card { gap: 25px; } }
 @media (max-width: 600px) { .certificate-card { grid-template-columns: 1fr; } }
+
+.collection-introduction { max-width: 760px; }
+
+
+.ai-disclosure { margin: 32px 0; padding: 20px 0; border-top: 1px solid #ccd6e6; max-width: 850px; }
+.ai-disclosure summary { cursor: pointer; font-weight: 600; color: #214f88; }
+.ai-disclosure summary:focus-visible { outline: 3px solid #ab411f; outline-offset: 6px; }
+
+.photo-selection { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; align-items: start; margin: 32px 0 60px; }
+.photo-selection figure { margin: 0; }
+.photo-selection img { display: block; width: 100%; height: auto; }
+.photo-selection figcaption { font-size: 14px; margin-top: 12px; color: #4e607a; }
+@media (max-width: 600px) { .photo-selection { grid-template-columns: 1fr; } }
