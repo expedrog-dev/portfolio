@@ -1217,8 +1217,21 @@ footer p {
 
 
 /* Retrato, registros originais de 2021 e documentos de formação. */
-.portrait { margin: 28px 0; max-width: 360px; }
-.portrait img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 30%; border-radius: 4px; }
+.portrait {
+  width: min(100%, 320px);
+  margin: 28px 0 24px;
+  padding: 8px;
+  border: 1px solid #cbd4cb;
+  border-radius: 24px;
+  background: #fff;
+}
+.portrait img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+.portrait + .location { margin-top: 24px; }
 .collection-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
 .collection-grid article { padding: 0 0 22px; overflow: hidden; }
 .collection-grid article h3, .collection-grid article p { margin-left: 20px; margin-right: 20px; }
@@ -1230,4 +1243,4 @@ footer p {
 .certificate-card img { width: 100%; border: 1px solid #cbd4cb; }
 .certificate-card h2 { font-size: 30px; margin: 15px 0; }
 @media (max-width: 900px) { .collection-grid { grid-template-columns: 1fr; } .record-photo { max-height: none; } .certificate-card { gap: 25px; } }
-@media (max-width: 600px) { .certificate-card { grid-template-columns: 1fr; } .portrait { max-width: 100%; } }
+@media (max-width: 600px) { .certificate-card { grid-template-columns: 1fr; } }
