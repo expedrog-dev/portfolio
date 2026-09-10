@@ -1264,3 +1264,10 @@ html { color-scheme: dark; }
 .archive-nav { margin-bottom: 44px; }
 .archive-nav button:focus-visible { outline: 3px solid #83b5ff; outline-offset: 4px; }
 .archive-nav button[aria-pressed="true"] { background: #2762bb; color: #fff; border-color: #83b5ff; }
+
+.photo-category { font-size: 26px; margin-top: 44px; }
+.photo-preview-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: start; gap: 24px; margin-top: 28px; }
+.photo-preview-grid figure { margin: 0; }
+.photo-preview-grid img { display: block; width: 100%; height: auto; }
+.photography-preview { border-bottom: 1px solid #30435e; }
+@media (max-width: 600px) { .photo-preview-grid { grid-template-columns: 1fr; } }
