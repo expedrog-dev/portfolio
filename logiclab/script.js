@@ -207,6 +207,76 @@ const perguntas = [
     dificuldade: "dificil"}
 ];
 
+let modoAtual = "treino";
+const nomesCategorias = {conectivos: "Conectivos", traducao: "Tradução", tabela: "Tabela-verdade"};
+let desempenhoCategorias;
+
+function resetarSessao() {
+  perguntaAtual = 0;
+  pontuacao = 0;
+  respondida = false;
+  perguntasAtuais = [];
+  desempenhoCategorias = Object.fromEntries(Object.keys(nomesCategorias).map(categoria => [categoria, {acertos: 0, total: 0}]));
+  document.getElementById("progresso").style.width = "0%";
+  document.getElementById("barraProgresso").setAttribute("aria-valuenow", "0");
+  document.getElementById("progressLabel").textContent = "0% da rodada";
+  document.getElementById("desempenhoCategorias").replaceChildren();
+  document.getElementById("recomendacaoRevisao").textContent = "";
+}
+
+function iniciarSessao() {
+  resetarSessao();
+  prepararPerguntas();
+  if (!perguntasAtuais.length) {
+    mostrarTela("dificuldades");
+    document.getElementById("categoriaSelecionada").textContent = "Ainda não existem questões nesta combinação.";
+    return;
+  }
+  mostrarTela("quiz");
+  mostrarPergunta();
+}
+
+function voltarCategorias() {
+  modoAtual = "treino";
+  resetarSessao();
+  mostrarTela("categorias");
+}
+
+function registrarDesempenho(categoria, acertou) {
+  desempenhoCategorias[categoria].total++;
+  if (acertou) desempenhoCategorias[categoria].acertos++;
+}
+
+function mostrarDesempenho() {
+  const area = document.getElementById("desempenhoCategorias");
+  area.replaceChildren();
+  const respondidas = Object.entries(desempenhoCategorias).filter(([, dados]) => dados.total > 0);
+  for (const [categoria, dados] of respondidas) {
+    const percentual = Math.round(dados.acertos / dados.total * 100);
+    const card = document.createElement("article");
+    card.className = "desempenho-card";
+    const titulo = document.createElement("h3");
+    titulo.textContent = nomesCategorias[categoria];
+    const numeros = document.createElement("p");
+    numeros.textContent = `${dados.acertos}/${dados.total} acertos • ${percentual}%`;
+    const barra = document.createElement("div");
+    barra.className = "desempenho-barra";
+    barra.setAttribute("role", "progressbar");
+    barra.setAttribute("aria-label", `Acertos em ${nomesCategorias[categoria]}`);
+    barra.setAttribute("aria-valuemin", "0");
+    barra.setAttribute("aria-valuemax", "100");
+    barra.setAttribute("aria-valuenow", percentual);
+    const preenchimento = document.createElement("span");
+    preenchimento.style.width = `${percentual}%`;
+    barra.appendChild(preenchimento);
+    card.append(titulo, numeros, barra);
+    area.appendChild(card);
+  }
+  // Compare exact ratios, so rounding cannot change the recommendation.
+  const menor = respondidas.reduce((atual, item) => !atual || item[1].acertos / item[1].total < atual[1].acertos / atual[1].total ? item : atual, null);
+  document.getElementById("recomendacaoRevisao").textContent = menor ? `Conteúdo para revisar: ${nomesCategorias[menor[0]]}` : "";
+}
+
 let respondida = false;
 let perguntaAtual = 0;
 let pontuacao = 0;
@@ -224,6 +294,7 @@ function embaralharArray(array) {
 }
 
 function prepararPerguntas() {
+  if (modoAtual === "prova") { categoriaAtual = "misturado"; dificuldadeAtual = "todas"; }
   if (categoriaAtual === "misturado") {
     if (dificuldadeAtual === "todas") {
       perguntasAtuais = [...perguntas];
@@ -243,6 +314,7 @@ function prepararPerguntas() {
   perguntasAtuais = perguntasAtuais.slice(0, 10);
   perguntasAtuais = perguntasAtuais.map((pergunta) => ({
   ...pergunta,
+  ...(pergunta.linhas ? {linhas: pergunta.linhas.map(linha => ({...linha}))} : {}),
   alternativas: pergunta.alternativas
     ? embaralharArray(pergunta.alternativas)
     : []
@@ -256,7 +328,7 @@ function mostrarTela(tela) {
   document.getElementById("dificuldades").style.display = "none";
   document.getElementById("quiz").style.display = "none";
   document.getElementById("resultado").style.display = "none";
-  document.getElementById(tela).style.display = "block";
+  document.getElementById(tela).style.display = tela === "inicio" ? "grid" : "block";
   const titulo = document.querySelector(`#${tela} h1, #${tela} h2`);
   titulo.setAttribute("tabindex", "-1"); titulo.focus({preventScroll:true});
   window.scrollTo({top:0,behavior:"instant"});
@@ -336,14 +408,14 @@ function mostrarPergunta() {
   // PROGRESSO
 
   const progresso =
-    (perguntaAtual / perguntasAtuais.length) * 100;
+    ((perguntaAtual + 1) / perguntasAtuais.length) * 100;
 
   document.getElementById("progresso").style.width =
     `${progresso}%`;
 
 
   document.getElementById("barraProgresso").setAttribute("aria-valuenow", Math.round(progresso));
-  document.getElementById("progressLabel").textContent = `${Math.round(progresso)}% concluído`;
+  document.getElementById("progressLabel").textContent = `${Math.round(progresso)}% da rodada`;
 
   // BOTÃO PRÓXIMA
 
@@ -428,7 +500,8 @@ function mostrarPergunta() {
 
 
   document.getElementById("infoQuiz").textContent =
-    `${textoCategoria} • ${textoDificuldade}`;
+    modoAtual === "prova" ? `Modo Prova • ${perguntasAtuais.length} questões` : `${textoCategoria} • ${textoDificuldade}`;
+  document.getElementById("infoQuiz").classList.toggle("modo-prova", modoAtual === "prova");
 
 
   // SE FOR TABELA INTERATIVA
@@ -473,6 +546,7 @@ function verificarResposta(respostaEscolhida) {
   const explicacao =
   gerarExplicacao(perguntaAtualCompleta);
   const acertou = respostaEscolhida === correta;
+  registrarDesempenho(perguntaAtualCompleta.categoria, acertou);
   if (acertou) {
     pontuacao++;
   }
@@ -530,9 +604,11 @@ function verificarTabela() {
     }
     resposta.disabled = true;
     const nota = document.createElement("small");
+    nota.className = "correcaoLinha";
     nota.textContent = resposta.value === correta ? "✓ Correto" : `× Correto: ${correta}`;
     resposta.parentElement.appendChild(nota);
   });
+  registrarDesempenho(perguntasAtuais[perguntaAtual].categoria, acertouTudo);
   // PONTUAÇÃO
   if (acertouTudo) {
     pontuacao++;
@@ -542,6 +618,7 @@ function verificarTabela() {
     feedback.textContent =
       "✗ Algumas linhas estão incorretas. Observe as marcações.";
   }
+  feedback.textContent += ` ${gerarExplicacao(perguntasAtuais[perguntaAtual])}`;
   // BLOQUEIA VERIFICAÇÃO
   document.getElementById(
     "botaoVerificarTabela"
@@ -578,10 +655,15 @@ function mostrarResultado() {
     for(let i=0;i<24;i++){const part=document.createElement("i");part.style.setProperty("--x",`${Math.random()*100}%`);part.style.setProperty("--delay",`${Math.random()*.5}s`);c.appendChild(part);}
     document.getElementById("resultado").appendChild(c);
   }
+  mostrarDesempenho();
   mostrarTela("resultado");
 }
-document.getElementById("botaoComecar").addEventListener("click", () => {
-  mostrarTela ("categorias");
+document.getElementById("botaoComecar").addEventListener("click", voltarCategorias);
+document.getElementById("botaoModoProva").addEventListener("click", () => {
+  modoAtual = "prova";
+  categoriaAtual = "misturado";
+  dificuldadeAtual = "todas";
+  iniciarSessao();
 });
 
 document.getElementById("botaoProxima").addEventListener("click", () => {
@@ -595,14 +677,7 @@ document.getElementById("botaoProxima").addEventListener("click", () => {
     mostrarResultado();
   }
 });
-document.getElementById("botaoReiniciar").addEventListener("click", () => {
-  perguntaAtual = 0;
-  pontuacao = 0;
-  prepararPerguntas();
-  document.getElementById("progresso").style.width = "0%";
-  mostrarTela("quiz");
-  mostrarPergunta();
-});
+document.getElementById("botaoReiniciar").addEventListener("click", iniciarSessao);
 const botoesCategorias = document.querySelectorAll(".botaoCategoria");
 botoesCategorias.forEach((botao) => {
   botao.addEventListener("click", () => {
@@ -627,25 +702,13 @@ const botoesDificuldades = document.querySelectorAll(".botaoDificuldade");
 botoesDificuldades.forEach((botao) => {
   botao.addEventListener("click", () => {
     dificuldadeAtual = botao.dataset.dificuldade;
-    prepararPerguntas();
-    if (perguntasAtuais.length === 0) {
-      alert("Ainda não existem questões nesta combinação.");
-      return;
-    }
-    perguntaAtual = 0;
-    pontuacao = 0;
-    mostrarTela("quiz");
-    mostrarPergunta();
+    iniciarSessao();
   });
 });
-document.getElementById("botaoCategorias").addEventListener("click", () => {
-  perguntaAtual = 0;
-  pontuacao = 0 ;
-  document.getElementById("progresso").style.width = "0%";
-  mostrarTela("categorias");
-});
+document.getElementById("botaoCategorias").addEventListener("click", voltarCategorias);
 document
   .getElementById("botaoVerificarTabela")
   .addEventListener("click", verificarTabela);
 
-document.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", () => mostrarTela(b.dataset.back)));
+document.querySelectorAll("[data-back]").forEach(b => b.addEventListener("click", voltarCategorias));
+resetarSessao();
