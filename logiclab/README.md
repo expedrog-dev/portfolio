@@ -24,7 +24,7 @@ Abra `index.html` no navegador. Não exige instalação nem servidor. Opcionalme
 
 - `index.html`: telas e conteúdo semântico.
 - `style.css`: identidade visual, responsividade e estados.
-- `script.js`: banco original, seleção de perguntas e lógica do quiz.
+- `script.js`: banco completo de perguntas no início do arquivo, seguido das configurações e do funcionamento do quiz.
 - `assets/PedroHand-Regular.woff2`: fonte autoral do Pedro, usada em detalhes.
 - `tests/flows.cjs`: testes de fluxo legados com jsdom.
 - `tests/browser.cjs`: testes completos no Chrome com Playwright (dependência apenas de desenvolvimento).
