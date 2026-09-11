@@ -1271,3 +1271,7 @@ html { color-scheme: dark; }
 .photo-preview-grid img { display: block; width: 100%; height: auto; }
 .photography-preview { border-bottom: 1px solid #30435e; }
 @media (max-width: 600px) { .photo-preview-grid { grid-template-columns: 1fr; } }
+
+/* Trocas de retratos: mantém o espaço da composição existente. */
+.portrait-original img { aspect-ratio: 771 / 1020; object-fit: cover; object-position: 50% 40%; }
+.photo-preview-grid img.portrait-cool, .photo-selection img.portrait-cool { aspect-ratio: 2 / 3; object-fit: cover; object-position: 50% 50%; }
