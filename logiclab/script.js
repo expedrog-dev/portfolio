@@ -1,5 +1,5 @@
 const perguntas = [
-  // CONECTIVOS
+// CONECTIVOS
   {pergunta: "Qual conectivo representa 'e'?",
     alternativas: ["∨", "∧", "→", "↔"],
     correta: "∧",
@@ -55,7 +55,7 @@ const perguntas = [
     correta: "→",
     categoria: "conectivos",
     dificuldade: "dificil"},
-  // TRADUÇÃO
+// TRADUÇÃO
   {pergunta:
       "Considere p = 'Você estuda' e q = 'Você trabalha'. Como representar 'Você estuda e você trabalha'?",
     alternativas: ["p ∧ q", "p ∨ q", "p → q", "¬p"],
@@ -141,18 +141,77 @@ const perguntas = [
     correta: "¬p → q",
     categoria: "traducao",
     dificuldade: "dificil"},
-  // TABELA-VERDADE
+// TABELA-VERDADE
+  {pergunta: "Complete a tabela-verdade da expressão p ∨ q.",
+  categoria: "tabela",
+  dificuldade: "facil",
+  tipo: "tabelaInterativa",
+  expressao: "p ∨ q",
+  linhas: [
+    { p: "V", q: "V", correta: "V" },
+    { p: "V", q: "F", correta: "V" },
+    { p: "F", q: "V", correta: "V" },
+    { p: "F", q: "F", correta: "F" }
+  ] //disjunção
+},
+{pergunta: "Complete a tabela-verdade da expressão p → q.",
+  categoria: "tabela",
+  dificuldade: "medio",
+  tipo: "tabelaInterativa",
+  expressao: "p → q",
+  linhas: [
+    { p: "V", q: "V", correta: "V" },
+    { p: "V", q: "F", correta: "F" },
+    { p: "F", q: "V", correta: "V" },
+    { p: "F", q: "F", correta: "V" }
+  ] //implicação
+},
+{pergunta: "Complete a tabela-verdade da expressão p ↔ q.",
+  categoria: "tabela",
+  dificuldade: "medio",
+  tipo: "tabelaInterativa",
+  expressao: "p ↔ q",
+  linhas: [
+    { p: "V", q: "V", correta: "V" },
+    { p: "V", q: "F", correta: "F" },
+    { p: "F", q: "V", correta: "F" },
+    { p: "F", q: "F", correta: "V" }
+  ] //bicondicional
+},
+{pergunta: "Complete a tabela-verdade da expressão ¬(p ∨ q).",
+  categoria: "tabela",
+  dificuldade: "dificil",
+  tipo: "tabelaInterativa",
+  expressao: "¬(p ∨ q)",
+  linhas: [
+    { p: "V", q: "V", correta: "F" },
+    { p: "V", q: "F", correta: "F" },
+    { p: "F", q: "V", correta: "F" },
+    { p: "F", q: "F", correta: "V" }
+  ] //composta
+},
   {pergunta: "Complete a tabela-verdade da expressão p ∧ q.",
   categoria: "tabela",
   dificuldade: "medio",
   tipo: "tabelaInterativa",
   expressao: "p ∧ q",
-
   linhas: [
     { p: "V", q: "V", correta: "V" },
     { p: "V", q: "F", correta: "F" },
     { p: "F", q: "V", correta: "F" },
     { p: "F", q: "F", correta: "F" }
+  ]
+},
+{pergunta: "Complete a tabela-verdade da expressão p → ¬q.",
+  categoria: "tabela",
+  dificuldade: "dificil",
+  tipo: "tabelaInterativa",
+  expressao: "p → ¬q",
+  linhas: [
+    { p: "V", q: "V", correta: "F" },
+    { p: "V", q: "F", correta: "V" },
+    { p: "F", q: "V", correta: "V" },
+    { p: "F", q: "F", correta: "V" }
   ]
 },
   {pergunta: "Se p = V e q = F, qual é o valor de p ∧ q?",

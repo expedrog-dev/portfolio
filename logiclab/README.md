@@ -6,7 +6,7 @@ Um laboratório de lógica proposicional criado por **Pedro Henrique Santos Garc
 
 ## Experimente
 
-Escolha Conectivos, Tradução, Tabela-verdade ou Misturado; depois selecione Fácil, Médio, Difícil ou Todas. Cada rodada reúne até dez questões do banco de 31 perguntas, com ordem e alternativas embaralhadas. A quantidade depende do filtro escolhido.
+Escolha Conectivos, Tradução, Tabela-verdade ou Misturado; depois selecione Fácil, Médio, Difícil ou Todas. Cada rodada reúne até dez questões do banco de 36 perguntas, com ordem e alternativas embaralhadas. A quantidade depende do filtro escolhido.
 
 - Feedback imediato e identificação da alternativa correta.
 - Tabela interativa com validação de preenchimento e correção de cada linha.
@@ -37,7 +37,7 @@ A versão original foi ampliada com novo design e melhorias de acessibilidade e 
 
 ## Validação
 
-`tests/browser.cjs` executa 37 rodadas completas e 250 respostas nos cenários sistemáticos: as 16 combinações de treino com 0% e 100%, além de provas com 0%, 50%, 60%, 80% e 100%. Valida filtros, progresso, feedback, cliques repetidos, desempenho por categoria, recomendação, reinício, saída da prova, embaralhamento e preservação do banco. Inclui testes de tabela incompleta, correta, parcialmente errada e totalmente errada.
+`tests/browser.cjs` executa 37 rodadas completas e 262 respostas nos cenários sistemáticos: as 16 combinações de treino com 0% e 100%, além de provas com 0%, 50%, 60%, 80% e 100%. Valida filtros, progresso, feedback, cliques repetidos, desempenho por categoria, recomendação, reinício, saída da prova, embaralhamento e preservação do banco. Testa individualmente as seis tabelas interativas (p ∨ q, p → q, p ↔ q, ¬(p ∨ q), p ∧ q e p → ¬q), com respostas incompletas, corretas, parcialmente erradas e totalmente erradas.
 
 Também percorre o site por cliques e seleção reais no Chrome, com larguras de 320, 390, 768, 1024 e 1440 pixels, verifica erros de console e carregamento e registra capturas. A mesma suíte pode ser executada contra a versão publicada.
 
@@ -48,4 +48,4 @@ node tests/browser.cjs
 QUIZ_URL=https://expedrog-dev.github.io/portfolio/logiclab/ node tests/browser.cjs
 ```
 
-Por padrão, o teste usa `http://127.0.0.1:4174/`. `QA_OUTPUT` seleciona a pasta de relatórios e capturas; `SOURCE_JS` permite comparar as 31 questões com o JavaScript original. Não são necessários serviços externos para usar o quiz. A verificação responsiva em Chrome não substitui testes em aparelhos físicos ou em Safari/Firefox.
+Por padrão, o teste usa `http://127.0.0.1:4174/`. `QA_OUTPUT` seleciona a pasta de relatórios e capturas; `SOURCE_JS` permite comparar as 36 questões com o JavaScript original. Não são necessários serviços externos para usar o quiz. A verificação responsiva em Chrome não substitui testes em aparelhos físicos ou em Safari/Firefox.

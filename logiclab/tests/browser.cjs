@@ -88,15 +88,15 @@ fs.mkdirSync(out,{recursive:true});
   }
   checks.push('30 exam selections, shuffling, full bank; complete exams at 0/50/60/80/100%; replay and exit');
   // Exercise the real interactive question deterministically, without changing the bank.
-  for(const wrongRows of [0,1,4]){
-   modoAtual='treino';categoriaAtual='tabela';dificuldadeAtual='medio';iniciarSessao();
-   const tableIndex=perguntasAtuais.findIndex(q=>q.tipo==='tabelaInterativa');
+  for(const expression of perguntas.filter(q=>q.tipo==='tabelaInterativa').map(q=>q.expressao))for(const wrongRows of [0,1,4]){
+   modoAtual='treino';categoriaAtual='tabela';dificuldadeAtual=perguntas.find(q=>q.expressao===expression).dificuldade;iniciarSessao();
+   const tableIndex=perguntasAtuais.findIndex(q=>q.expressao===expression);
    [perguntasAtuais[0],perguntasAtuais[tableIndex]]=[perguntasAtuais[tableIndex],perguntasAtuais[0]];mostrarPergunta();
    const q=perguntasAtuais[0];d.querySelector('select').value='V';click('#botaoVerificarTabela');check(!respondida&&desempenhoCategorias.tabela.total===0,'partial incomplete');
    d.querySelectorAll('select').forEach((s,i)=>s.value=i<wrongRows?(q.linhas[i].correta==='V'?'F':'V'):q.linhas[i].correta);
    click('#botaoVerificarTabela');verificarTabela();check(pontuacao===(wrongRows===0?1:0),'whole table one point');check(desempenhoCategorias.tabela.total===1&&desempenhoCategorias.tabela.acertos===(wrongRows===0?1:0),'table category');check(d.querySelectorAll('select.errada').length===wrongRows,'table row states');
   }
-  checks.push('tables correct, partially wrong, entirely wrong, incomplete, row correction, locking and category scoring');
+  checks.push(`${perguntas.filter(q=>q.tipo==='tabelaInterativa').length} interactive tables: correct, partially wrong, entirely wrong, incomplete, row correction, locking and category scoring`);
   // Unequal denominators: recommendation must compare percentages, not error counts.
   desempenhoCategorias={conectivos:{acertos:3,total:4},traducao:{acertos:2,total:3},tabela:{acertos:1,total:3}};mostrarDesempenho();check(d.querySelector('#recomendacaoRevisao').textContent.endsWith('Tabela-verdade'),'ratio recommendation');
   voltarCategorias();mostrarTela('inicio');check(getComputedStyle(d.querySelector('#inicio')).display==='grid','home layout preserved');
@@ -109,7 +109,8 @@ fs.mkdirSync(out,{recursive:true});
   assert.equal(await overflow(),false,`home overflow ${width}`);
   if([1440,390].includes(width))await page.screenshot({path:path.join(out,`depois-inicio-${width}.png`),fullPage:true});
   await page.locator('#botaoComecar').click();await page.locator('[data-categoria=tabela]').click();await page.locator('[data-dificuldade=medio]').click();
-  for(let i=0;i<4;i++){
+  const trainingTotal=await page.evaluate(()=>perguntasAtuais.length);
+  for(let i=0;i<trainingTotal;i++){
    const table=await page.locator('#botaoVerificarTabela').isVisible();
    if(table){await page.locator('#botaoVerificarTabela').click();assert.match(await page.locator('#feedback').innerText(),/Preencha/);const selects=page.locator('select');for(let j=0;j<4;j++)await selects.nth(j).selectOption('V');await page.locator('#botaoVerificarTabela').click();assert.equal(await overflow(),false,`table overflow ${width}`);if([1440,390].includes(width))await page.screenshot({path:path.join(out,`depois-tabela-${width}.png`),fullPage:true});}
    else await page.locator('#alternativas button').first().click();
