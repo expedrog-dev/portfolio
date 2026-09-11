@@ -4,7 +4,7 @@ p=Path(__file__).resolve().parent
 d=p/'dist'
 if d.exists(): shutil.rmtree(d)
 d.mkdir()
-for name in ['index.html','style.css','script.js','certificados.html','colecao.html','projetos','assets']:
+for name in ['index.html','style.css','script.js','certificados.html','colecao.html','projetos','assets','logiclab']:
  src=p/name
  if src.is_dir():shutil.copytree(src,d/name)
  else:shutil.copy2(src,d/name)
